@@ -1,0 +1,221 @@
+{
+  "entities": {
+    "School": {
+      "title": "School",
+      "description": "Represents a school or learning center.",
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "region": { "type": "string" },
+        "subscriptionTier": { "type": "string", "enum": ["FREE", "PRO", "PREMIUM"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["name", "subscriptionTier"]
+    },
+    "Teacher": {
+      "title": "Teacher",
+      "description": "Represents a teacher in a school.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "name": { "type": "string" },
+        "email": { "type": "string" },
+        "phone": { "type": "string" },
+        "department": { "type": "string" },
+        "role": { "type": "string" },
+        "institutionName": { "type": "string" },
+        "isAdmin": { "type": "boolean" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["schoolId", "name", "email"]
+    },
+    "Class": {
+      "title": "Class",
+      "description": "A specific class or subject group.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "teacherId": { "type": "string" },
+        "name": { "type": "string" },
+        "subject": { "type": "string" },
+        "gradeLevel": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["schoolId", "teacherId", "name"]
+    },
+    "Student": {
+      "title": "Student",
+      "description": "A student enrolled in a class.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "classId": { "type": "string" },
+        "name": { "type": "string" },
+        "rollNo": { "type": "string" },
+        "section": { "type": "string" },
+        "email": { "type": "string" },
+        "enrollmentDate": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["ACTIVE", "INACTIVE", "GRADUATED"] },
+        "parentPhone": { "type": "string" },
+        "age": { "type": "number" },
+        "gender": { "type": "string" },
+        "branch": { "type": "string" },
+        "year": { "type": "string", "enum": ["1st", "2nd", "3rd", "4th"] },
+        "skillsToLearn": { "type": "array", "items": { "type": "string" } },
+        "skillsOffered": { "type": "array", "items": { "type": "string" } }
+      },
+      "required": ["schoolId", "classId", "name", "status"]
+    },
+    "Skill": {
+      "title": "Skill",
+      "description": "A skill or proficiency being tracked.",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "name": { "type": "string" },
+        "proficiency": { "type": "number" },
+        "category": { "type": "string" },
+        "updatedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "schoolId", "name", "proficiency"]
+    },
+    "Activity": {
+      "title": "Activity",
+      "description": "An activity or task completed by a student.",
+      "type": "object",
+      "properties": {
+        "studentId": { "type": "string" },
+        "schoolId": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "status": { "type": "string", "enum": ["PENDING", "COMPLETED"] },
+        "score": { "type": "number" },
+        "date": { "type": "string", "format": "date" }
+      },
+      "required": ["studentId", "schoolId", "name", "status"]
+    },
+    "Attendance": {
+      "title": "Attendance",
+      "description": "Daily attendance record for a student.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "status": { "type": "string", "enum": ["PRESENT", "ABSENT", "LEAVE"] },
+        "recordedAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["schoolId", "studentId", "date", "status"]
+    },
+    "Lesson": {
+      "title": "Lesson",
+      "description": "A lesson log for a class.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "classId": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "topic": { "type": "string" },
+        "type": { "type": "string", "enum": ["THEORY", "LAB"] },
+        "coveredTopics": { "type": "array", "items": { "type": "string" } },
+        "notes": { "type": "string" },
+        "loggedBy": { "type": "string" }
+      },
+      "required": ["schoolId", "classId", "date", "topic"]
+    },
+    "Assessment": {
+      "title": "Assessment",
+      "description": "Monthly performance assessment for a student.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "month": { "type": "string" },
+        "attendancePercentage": { "type": "number" },
+        "engagementScore": { "type": "number" },
+        "quizScore": { "type": "number" },
+        "assignmentCompletion": { "type": "number" },
+        "notes": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["studentId", "month"]
+    },
+    "Project": {
+      "title": "Project",
+      "description": "An engineering project.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "name": { "type": "string" },
+        "description": { "type": "string" },
+        "techStack": { "type": "array", "items": { "type": "string" } },
+        "status": { "type": "string", "enum": ["ONGOING", "COMPLETED"] },
+        "studentIds": { "type": "array", "items": { "type": "string" } },
+        "githubUrl": { "type": "string" },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["schoolId", "name", "status"]
+    },
+    "Exam": {
+      "title": "Exam",
+      "description": "An academic examination.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "classId": { "type": "string" },
+        "subject": { "type": "string" },
+        "date": { "type": "string", "format": "date" },
+        "type": { "type": "string", "enum": ["INTERNAL", "EXTERNAL", "LAB"] },
+        "status": { "type": "string", "enum": ["UPCOMING", "ONGOING", "COMPLETED"] }
+      },
+      "required": ["schoolId", "classId", "subject", "date", "status"]
+    },
+    "Notification": {
+      "title": "Notification",
+      "description": "A system or user notification.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "title": { "type": "string" },
+        "message": { "type": "string" },
+        "type": { "type": "string", "enum": ["EXAM", "ATTENDANCE", "SYSTEM", "GENERAL"] },
+        "date": { "type": "string", "format": "date-time" },
+        "read": { "type": "boolean" }
+      },
+      "required": ["schoolId", "title", "message", "type", "read"]
+    },
+    "SkillRequest": {
+      "title": "SkillRequest",
+      "description": "A peer skill exchange request.",
+      "type": "object",
+      "properties": {
+        "schoolId": { "type": "string" },
+        "studentId": { "type": "string" },
+        "studentName": { "type": "string" },
+        "skillName": { "type": "string" },
+        "type": { "type": "string", "enum": ["NEED_HELP", "OFFER_HELP"] },
+        "description": { "type": "string" },
+        "status": { "type": "string", "enum": ["OPEN", "MATCHED", "CLOSED"] },
+        "createdAt": { "type": "string", "format": "date-time" }
+      },
+      "required": ["schoolId", "studentId", "skillName", "type", "status"]
+    }
+  },
+  "firestore": {
+    "schools": { "schema": "School", "description": "Collection of schools." },
+    "teachers": { "schema": "Teacher", "description": "Collection of teachers." },
+    "classes": { "schema": "Class", "description": "Collection of classes." },
+    "students": { "schema": "Student", "description": "Collection of students." },
+    "attendance": { "schema": "Attendance", "description": "Collection of attendance records." },
+    "lessons": { "schema": "Lesson", "description": "Collection of lesson logs." },
+    "assessments": { "schema": "Assessment", "description": "Collection of performance assessments." },
+    "skills": { "schema": "Skill", "description": "Collection of student skills." },
+    "activities": { "schema": "Activity", "description": "Collection of student activities." },
+    "projects": { "schema": "Project", "description": "Collection of engineering projects." },
+    "exams": { "schema": "Exam", "description": "Collection of exams." },
+    "notifications": { "schema": "Notification", "description": "Collection of notifications." },
+    "skillRequests": { "schema": "SkillRequest", "description": "Collection of peer skill swap requests." }
+  }
+}
+

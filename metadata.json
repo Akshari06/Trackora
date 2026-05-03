@@ -1,0 +1,9 @@
+{
+  "name": "Remix: Remix: Trackora",
+  "description": "Mobile-first engineering student progress, skill, and project tracking system with AI-powered insights and peer skill exchange.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone",
+    "geolocation"
+  ]
+}
